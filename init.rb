@@ -1,4 +1,10 @@
 require 'redmine'
+require 'dispatcher'
+
+Dispatcher.to_prepare :chiliproject_companies do
+  require_dependency 'user_patch'
+  
+end
 
 Redmine::Plugin.register :chiliproject_companies do
   name 'Chiliproject Companies plugin'
@@ -10,5 +16,4 @@ Redmine::Plugin.register :chiliproject_companies do
   
   menu :admin_menu, :companies, { :controller => 'companies', :action => 'index' }, :caption => 'Companies'
   menu :top_menu, :companies, { :controller => 'companies', :action => 'index' }, :caption => 'Companies', :after => :projects
-  
 end
