@@ -5,6 +5,7 @@ class CompaniesController < ApplicationController
   
   before_filter :require_admin, :except => :show
   before_filter :get_compnay, :only => [:show, :edit, :update, :destroy]
+  before_filter :fill_selects, :only => [:new, :create, :edit, :update]
   
   helper :attachments
   
@@ -13,6 +14,7 @@ class CompaniesController < ApplicationController
   end
   
   def show
+    @users = @company.users
     render :layout => 'base'
   end
   
@@ -35,6 +37,7 @@ class CompaniesController < ApplicationController
   end
   
   def update
+    params[:company][:user_ids] ||= []
     if @company.update_attributes(params[:company])
       attachments = Attachment.attach_files(@company, params[:attachments]) if params[:attachments]
       flash[:notice] = "Successfully updated company"
@@ -51,6 +54,10 @@ class CompaniesController < ApplicationController
   end
   
   private
+  
+  def fill_selects
+    @users = User.active.all
+  end
   
   def get_compnay
     @company = Company.find_by_identifier(params[:id])

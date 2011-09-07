@@ -3,12 +3,24 @@
 <% form_for @company, :builder => TabularFormBuilder, :html => {:multipart => true} do |f| %>
 
   <div class="box tabular">
+    <h3>Company</h3>
     <p><%= f.text_field :name, :required => true %></p>
     <p><%= f.text_field :identifier, :required => true %></p>
     <p><%= f.text_area :description, :required => true %></p>
+    <p>
+      <label><%=l(:label_attachment_plural)%></label><br />
+      <%= render :partial => 'attachments/form' %>
+    </p>
   </div>
   
-  <p><label><%=l(:label_attachment_plural)%></label><br /><%= render :partial => 'attachments/form' %></p>
+  <div class="box tabular">
+    <h3>Users</h3>
+    <p>
+      <% @users.each do |user| %>
+        <%= check_box_tag "company[user_ids][]", user.id, @company.linked_with_user(user) %> <%= user.name %><br />
+      <% end %>
+    </p>
+  </div>
   
   <%= submit_tag l(@company.new_record? ? :button_create : :button_save) %>
 <% end %>

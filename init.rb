@@ -10,6 +10,4 @@ Redmine::Plugin.register :chiliproject_companies do
   
   menu :admin_menu, :companies, { :controller => 'companies', :action => 'index' }, :caption => 'Companies'
   
-  permission :view_companies, :companies => :show
-  permission :edit_companies, :companies => [:index, :new, :create, :edit, :update, :destroy]
 end
