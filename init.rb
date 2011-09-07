@@ -13,8 +13,8 @@ Redmine::Plugin.register :chiliproject_companies do
   author 'Francisco de Juan'
   description 'Add companies pages to Chiliproject with links to users and projects related'
   version '0.0.1'
-  url 'http://example.com/path/to/plugin'
-  author_url 'http://example.com/about'
+  url 'https://github.com/splendeo/chiliproject_companies'
+  author_url 'http://www.splendeo.es'
   
   menu :admin_menu, :companies, { :controller => 'companies', :action => 'index' }, :caption => 'Companies'
   menu :top_menu, :companies, { :controller => 'companies', :action => 'index' }, :caption => 'Companies', :after => :projects
