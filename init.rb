@@ -9,5 +9,6 @@ Redmine::Plugin.register :chiliproject_companies do
   author_url 'http://example.com/about'
   
   menu :admin_menu, :companies, { :controller => 'companies', :action => 'index' }, :caption => 'Companies'
+  menu :top_menu, :companies, { :controller => 'companies', :action => 'index' }, :caption => 'Companies', :after => :projects
   
 end
