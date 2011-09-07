@@ -12,6 +12,10 @@
     <tr>
 	    <th>Name</th>
     	<th>Description</th>
+    	<th>HW dev</th>
+    	<th>HW prod</th>
+    	<th>FW dev</th>
+    	<th>Driver</th>
     	<th>Projects</th>
     	<% if User.current.allowed_to?(:add_company, nil, :global => true) %>
     	  <th></th>
@@ -23,7 +27,11 @@
       <tr class="<%= cycle("odd", "even") %>">
       	<td class="name"><%= link_to company.name, company %></td>
       	<td><%= company.description %></td>
-      	<td><%= render_projects_sentence(company) %></td>
+      	<td class="center"><%= company.hardware_development? ? 'X' : '' %></td>
+      	<td class="center"><%= company.hardware_production? ? 'X' : '' %></td>
+      	<td class="center"><%= company.firmware_development? ? 'X' : '' %></td>
+      	<td class="center"><%= company.driver? ? 'X' : '' %></td>
+      	<td class="center"><%= render_projects_sentence(company) %></td>
       	<% if User.current.allowed_to?(:edit_company, nil, :global => true) %>
         	<td class="buttons">
         	  <%= link_to l(:button_edit), edit_company_path(company) %> | 
@@ -35,3 +43,11 @@
   </tbody>
 </table>
 </div>
+
+<h3>Work types</h3>
+<ul>
+  <li>HW dev: Hardware development</li>
+  <li>HW prod: Hardware production</li>
+  <li>FW dev: Firmware development (VHDL or processor code)</li>
+  <li>Driver: Linux driver development</li>
+</ul>

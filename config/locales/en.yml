@@ -1,3 +1,6 @@
 # English strings go here for Rails i18n
 en:
-  my_label: "My label"
+  field_hardware_development: "Hardware development"
+  field_hardware_production: "Hardware production"
+  field_firmware_development: "Firmware development"
+  field_driver: "Linux driver development"

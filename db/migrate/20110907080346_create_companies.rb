@@ -1,9 +1,13 @@
 class CreateCompanies < ActiveRecord::Migration
   def self.up
     create_table :companies do |t|
-      t.column :name, :string
-      t.column :description, :text
-      t.column :identifier, :string
+      t.string :name
+      t.text :description
+      t.string :identifier
+      t.boolean :hardware_development
+      t.boolean :hardware_production
+      t.boolean :firmware_development
+      t.boolean :driver
     end
   end
 

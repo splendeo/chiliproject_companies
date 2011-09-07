@@ -2,11 +2,19 @@
 
 <% form_for @company, :builder => TabularFormBuilder, :html => {:multipart => true} do |f| %>
 
-  <div class="box tabular">
-    <h3>Company</h3>
+  <div class="box tabular ">
+    <div class="splitcontentright">
+      <h4>Work types</h4>
+      <p><%= f.check_box :hardware_development %></p>
+    	<p><%= f.check_box :hardware_production %></p>
+    	<p><%= f.check_box :firmware_development %></p>
+    	<p><%= f.check_box :driver %></p>
+  	</div>
+    
     <p><%= f.text_field :name, :required => true %></p>
     <p><%= f.text_field :identifier, :required => true %></p>
     <p><%= f.text_area :description, :required => true %></p>
+  
     <p>
       <label><%=l(:label_attachment_plural)%></label><br />
       <%= render :partial => 'attachments/form' %>
