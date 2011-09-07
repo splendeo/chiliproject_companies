@@ -8,13 +8,20 @@
 <h2><%= @company.name %></h2>
 
 <div class="splitcontentright">
+	<% if @projects.any? %>
+  	<div class="projects box">
+    	<h3>Projects</h3>
+    	<%= render_project_hierarchy @projects %>
+    </div>
+	<% end %>
+
   <% if @users.any? %>
   	<div class="members box">
-    	<h3><%= "Users" %></h3>
+    	<h3>Users</h3>
   		<ul>
     		<% @users.each do |user| %>
     			<li><%= link_to user.name, user %></li>
-  		<% end %>
+  		  <% end %>
   		</ul>
   	</div>
 	<% end %>

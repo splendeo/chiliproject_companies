@@ -7,7 +7,7 @@ class CompaniesController < ApplicationController
   before_filter :get_compnay, :only => [:show, :edit, :update, :destroy]
   before_filter :fill_selects, :only => [:new, :create, :edit, :update]
   
-  helper :attachments
+  helper :attachments, :projects
   
   def index
     @companies = Company.all
@@ -15,6 +15,7 @@ class CompaniesController < ApplicationController
   
   def show
     @users = @company.users
+    @projects = @company.projects.visible.find(:all, :order => 'lft')
     render :layout => 'base'
   end
   
@@ -38,6 +39,7 @@ class CompaniesController < ApplicationController
   
   def update
     params[:company][:user_ids] ||= []
+    params[:company][:project_ids] ||= []
     if @company.update_attributes(params[:company])
       attachments = Attachment.attach_files(@company, params[:attachments]) if params[:attachments]
       flash[:notice] = "Successfully updated company"
@@ -57,6 +59,7 @@ class CompaniesController < ApplicationController
   
   def fill_selects
     @users = User.active.all
+    @projects = Project.active.all
   end
   
   def get_compnay

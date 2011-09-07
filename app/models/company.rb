@@ -2,6 +2,7 @@ class Company < ActiveRecord::Base
   unloadable
   
   has_and_belongs_to_many :users
+  has_and_belongs_to_many :projects
   
   validates_presence_of :name, :description, :identifier
   validates_uniqueness_of :identifier
@@ -11,6 +12,10 @@ class Company < ActiveRecord::Base
   
   def linked_with_user(user)
     users.include?(user)
+  end
+  
+  def linked_with_project(project)
+    projects.include?(project)
   end
   
   def to_param
