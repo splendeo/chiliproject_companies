@@ -1,0 +1,60 @@
+class CompaniesController < ApplicationController
+  unloadable
+  
+  layout 'admin'
+  
+  before_filter :require_admin, :except => :show
+  before_filter :get_compnay, :only => [:show, :edit, :update, :destroy]
+  
+  helper :attachments
+  
+  def index
+    @companies = Company.all
+  end
+  
+  def show
+    render :layout => 'base'
+  end
+  
+  def new
+    @company = Company.new
+  end
+  
+  def create
+    @company = Company.new(params[:company])
+    if @company.save
+      attachments = Attachment.attach_files(@company, params[:attachments]) if params[:attachments]
+      flash[:notice] = "Successfully created company"
+      redirect_to @company
+    else
+      render :action => 'new'
+    end
+  end
+  
+  def edit
+  end
+  
+  def update
+    if @company.update_attributes(params[:company])
+      attachments = Attachment.attach_files(@company, params[:attachments]) if params[:attachments]
+      flash[:notice] = "Successfully updated company"
+      redirect_to @company
+    else
+      render :action => 'edit'
+    end
+  end
+  
+  def destroy
+    @company.destroy
+    flash[:notice] = "Successfully deleted company"
+    redirect_to companies_url
+  end
+  
+  private
+  
+  def get_compnay
+    @company = Company.find_by_identifier(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render_404
+  end
+end

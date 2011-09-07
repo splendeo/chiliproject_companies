@@ -1,0 +1,30 @@
+<div class="contextual">
+  <%= link_to "New company", new_company_path, :class => 'icon icon-add' %>
+</div>
+
+<h2>Companies</h2>
+
+<div class="autoscroll">
+<table class="list">
+  <thead>
+    <tr>
+	    <th>Name</th>
+    	<th>Description</th>
+    	<th></th>
+    </tr>
+  </thead>
+  <tbody>
+<% @companies.each do |company| %>
+  <tr class="<%= cycle("odd", "even") %>">
+  	<td class="name"><%= link_to company.name, company %></td>
+  	<td><%= company.description %></td>
+  	<td class="buttons">
+  	  <%= link_to l(:button_edit), edit_company_path(company) %> | 
+      <%= link_to l(:button_delete), company, :method => :delete, :confirm => 'Are you sure?' %>
+    </td>
+    
+  </tr>
+<% end %>
+  </tbody>
+</table>
+</div>

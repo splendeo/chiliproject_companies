@@ -1,0 +1,14 @@
+<%= error_messages_for 'company' %>
+
+<% form_for @company, :builder => TabularFormBuilder, :html => {:multipart => true} do |f| %>
+
+  <div class="box tabular">
+    <p><%= f.text_field :name, :required => true %></p>
+    <p><%= f.text_field :identifier, :required => true %></p>
+    <p><%= f.text_area :description, :required => true %></p>
+  </div>
+  
+  <p><label><%=l(:label_attachment_plural)%></label><br /><%= render :partial => 'attachments/form' %></p>
+  
+  <%= submit_tag l(@company.new_record? ? :button_create : :button_save) %>
+<% end %>

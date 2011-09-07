@@ -1,0 +1,11 @@
+<div class="contextual">
+	<% if User.current.allowed_to?(:add_company, nil, :global => true) %>
+		<%= link_to "New company", new_company_path, :class => 'icon icon-add' %>
+	<% end %>
+</div>
+
+<h2><%= @company.name %></h2>
+
+<%= textilizable @company.description %>
+
+<%= link_to_attachments @company %>
