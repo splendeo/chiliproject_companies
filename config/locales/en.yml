@@ -4,6 +4,7 @@ en:
   field_hardware_production: "Hardware production"
   field_firmware_development: "Firmware development"
   field_driver: "Linux driver development"
+  field_short_description: "Short description"
   
   activerecord:
     models:

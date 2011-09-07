@@ -4,7 +4,7 @@ class Company < ActiveRecord::Base
   has_and_belongs_to_many :users
   has_and_belongs_to_many :projects
   
-  validates_presence_of :name, :description, :identifier
+  validates_presence_of :name, :identifier, :short_description
   validates_uniqueness_of :identifier
   validates_format_of :identifier, :with => /^(?!\d+$)[a-z0-9\-_]*$/
   

@@ -26,7 +26,7 @@
     <% @companies.each do |company| %>
       <tr class="<%= cycle("odd", "even") %>">
       	<td class="name"><%= link_to company.name, company %></td>
-      	<td><%= company.description %></td>
+      	<td><%= company.short_description %></td>
       	<td class="center"><%= company.hardware_development? ? 'X' : '' %></td>
       	<td class="center"><%= company.hardware_production? ? 'X' : '' %></td>
       	<td class="center"><%= company.firmware_development? ? 'X' : '' %></td>

@@ -8,6 +8,10 @@
 </div>
 
 <h2><%= link_to "Companies", companies_path %> &#187; <%= @company.name %></h2>
+<p><b><%= @company.short_description %></b></p>
+<% if @company.url.present? %>
+  <p><b>Website</b>: <%= link_to @company.url %>
+<% end %>
 
 <div class="splitcontentright">
 	<% if @projects.any? %>

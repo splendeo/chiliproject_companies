@@ -2,6 +2,8 @@ class CreateCompanies < ActiveRecord::Migration
   def self.up
     create_table :companies do |t|
       t.string :name
+      t.string :short_description
+      t.string :url
       t.text :description
       t.string :identifier
       t.boolean :hardware_development
