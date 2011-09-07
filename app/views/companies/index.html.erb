@@ -1,5 +1,7 @@
 <div class="contextual">
-  <%= link_to "New company", new_company_path, :class => 'icon icon-add' %>
+  <% if User.current.allowed_to?(:add_company, nil, :global => true) %>
+    <%= link_to "New company", new_company_path, :class => 'icon icon-add' %>
+  <% end %>
 </div>
 
 <h2>Companies</h2>
@@ -10,21 +12,26 @@
     <tr>
 	    <th>Name</th>
     	<th>Description</th>
-    	<th></th>
+    	<th>Projects</th>
+    	<% if User.current.allowed_to?(:add_company, nil, :global => true) %>
+    	  <th></th>
+    	<% end %>
     </tr>
   </thead>
   <tbody>
-<% @companies.each do |company| %>
-  <tr class="<%= cycle("odd", "even") %>">
-  	<td class="name"><%= link_to company.name, company %></td>
-  	<td><%= company.description %></td>
-  	<td class="buttons">
-  	  <%= link_to l(:button_edit), edit_company_path(company) %> | 
-      <%= link_to l(:button_delete), company, :method => :delete, :confirm => 'Are you sure?' %>
-    </td>
-    
-  </tr>
-<% end %>
+    <% @companies.each do |company| %>
+      <tr class="<%= cycle("odd", "even") %>">
+      	<td class="name"><%= link_to company.name, company %></td>
+      	<td><%= company.description %></td>
+      	<td><%= render_projects_sentence(company) %></td>
+      	<% if User.current.allowed_to?(:edit_company, nil, :global => true) %>
+        	<td class="buttons">
+        	  <%= link_to l(:button_edit), edit_company_path(company) %> | 
+            <%= link_to l(:button_delete), company, :method => :delete, :confirm => 'Are you sure?' %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
   </tbody>
 </table>
 </div>

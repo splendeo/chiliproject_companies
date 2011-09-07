@@ -1,9 +1,7 @@
 class CompaniesController < ApplicationController
   unloadable
   
-  layout 'admin'
-  
-  before_filter :require_admin, :except => :show
+  before_filter :require_admin, :except => [:index, :show]
   before_filter :get_compnay, :only => [:show, :edit, :update, :destroy]
   before_filter :fill_selects, :only => [:new, :create, :edit, :update]
   
@@ -15,8 +13,7 @@ class CompaniesController < ApplicationController
   
   def show
     @users = @company.users
-    @projects = @company.projects.visible.find(:all, :order => 'lft')
-    render :layout => 'base'
+    @projects = @company.projects.visible.all(:order => 'lft')
   end
   
   def new

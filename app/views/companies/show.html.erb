@@ -1,11 +1,13 @@
 <div class="contextual">
-	<% if User.current.allowed_to?(:add_company, nil, :global => true) %>
+	<% if User.current.allowed_to?(:edit_company, nil, :global => true) %>
 	  <%= link_to "Edit #{@company.name}", edit_company_path(@company), :class => 'icon icon-edit' %> |
+	<% end %>
+	<% if User.current.allowed_to?(:add_company, nil, :global => true) %>
 		<%= link_to "New company", new_company_path, :class => 'icon icon-add' %>
 	<% end %>
 </div>
 
-<h2><%= @company.name %></h2>
+<h2><%= link_to "Companies", companies_path %> &#187; <%= @company.name %></h2>
 
 <div class="splitcontentright">
 	<% if @projects.any? %>
