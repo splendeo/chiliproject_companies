@@ -4,6 +4,8 @@ require 'dispatcher'
 Dispatcher.to_prepare :chiliproject_companies do
   require_dependency 'user_patch'
   require_dependency 'project_patch'
+  
+  require_dependency 'chiliproject_companies/hooks'
 end
 
 Redmine::Plugin.register :chiliproject_companies do

@@ -4,3 +4,9 @@ en:
   field_hardware_production: "Hardware production"
   field_firmware_development: "Firmware development"
   field_driver: "Linux driver development"
+  
+  activerecord:
+    models:
+      company:
+        one: "Company"
+        other: "Companies"

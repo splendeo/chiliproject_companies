@@ -1,0 +1,10 @@
+<% if @project.companies.size >= 1 %>
+  <div class="projects box">
+    <h3><%= Company.human_name(:count => @project.companies.size) %></h3>
+    <p>
+      <% @project.companies.each do |company| %>
+        <%= link_to company.name, company %><br />
+      <% end %>
+    </p>
+  </div>
+<% end %>
