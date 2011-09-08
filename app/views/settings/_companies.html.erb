@@ -9,3 +9,8 @@
   <label>Bottom text</label><%= text_area_tag 'settings[bottom_text]', @settings['bottom_text'], :rows => 5, :class => 'wiki-edit' %>
 </p>
 <%= wikitoolbar_for 'settings_bottom_text' %>
+
+<p>
+  More settings: <%= link_to "Additional data", :controller => 'custom_fields', :action => 'index', :params => {:tab => 'CompanyCustomField'} %><br />
+  Save before clicking on this link
+</p>
