@@ -3,13 +3,14 @@
 <% form_for @company, :builder => TabularFormBuilder, :html => {:multipart => true} do |f| %>
 
   <div class="box tabular ">
-    <div class="splitcontentright">
-      <h4>Work types</h4>
-      <p><%= f.check_box :hardware_development %></p>
-    	<p><%= f.check_box :hardware_production %></p>
-    	<p><%= f.check_box :firmware_development %></p>
-    	<p><%= f.check_box :driver %></p>
-  	</div>
+    <% if @company.custom_field_values.size > 0 %>
+      <div class="splitcontentright">
+        <h4>Aditional data</h4>
+        <% @company.custom_field_values.each do |value| %>
+        	<p><%= custom_field_tag_with_label :company, value %></p>
+        <% end %>
+    	</div>
+    <% end %>
     
     <p><%= f.text_field :name, :required => true %></p>
     <p><%= f.text_field :identifier, :required => true %></p>

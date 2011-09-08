@@ -10,10 +10,23 @@
 <h2><%= link_to "Companies", companies_path %> &#187; <%= @company.name %></h2>
 <p><b><%= @company.short_description %></b></p>
 <% if @company.url.present? %>
-  <p><b>Website</b>: <%= link_to @company.url %>
+  <p><b>Website</b>: <%= link_to @company.url, @company.url, :class => "external" %>
 <% end %>
 
 <div class="splitcontentright">
+  <% if @company.has_custom_values? %>
+    <div class="news box">
+      <h3>Additional Data</h3>
+      <% @company.custom_values.each do |custom_value| %>
+        <p>
+          <% if !custom_value.value.blank? %>
+            <b><%= custom_value.custom_field.name %></b>: <%=h show_value(custom_value) %>
+          <% end %>
+        </p>
+      <% end %>
+    </div>
+  <% end %>
+    
 	<% if @projects.any? %>
   	<div class="projects box">
     	<h3>Projects</h3>

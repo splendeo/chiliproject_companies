@@ -8,6 +8,7 @@ class Company < ActiveRecord::Base
   validates_uniqueness_of :identifier
   validates_format_of :identifier, :with => /^(?!\d+$)[a-z0-9\-_]*$/
   
+  acts_as_customizable
   acts_as_attachable
   
   def linked_with_user(user)
@@ -20,6 +21,10 @@ class Company < ActiveRecord::Base
   
   def to_param
     @to_param ||= identifier.to_s
+  end
+  
+  def has_custom_values?
+    custom_values.any?{ |c| c.value.present? }
   end
   
   def attachments_deletable?(usr=User.current)

@@ -4,6 +4,7 @@ require 'dispatcher'
 Dispatcher.to_prepare :chiliproject_companies do
   require_dependency 'chiliproject_companies/patches/user_patch'
   require_dependency 'chiliproject_companies/patches/project_patch'
+  require_dependency 'chiliproject_companies/patches/custom_fields_helper_patch'
   
   require_dependency 'chiliproject_companies/hooks'
 end

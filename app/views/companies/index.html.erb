@@ -12,11 +12,10 @@
     <tr>
 	    <th>Name</th>
     	<th>Description</th>
-    	<th>HW dev</th>
-    	<th>HW prod</th>
-    	<th>FW dev</th>
-    	<th>Driver</th>
-    	<th>Projects</th>
+    	<% @custom_fields.each do |custom_value| %>
+        <th><%= custom_value.name %></th>
+      <% end %>
+      <th>Projects</th>
     	<% if User.current.allowed_to?(:add_company, nil, :global => true) %>
     	  <th></th>
     	<% end %>
@@ -27,10 +26,11 @@
       <tr class="<%= cycle("odd", "even") %>">
       	<td class="name"><%= link_to company.name, company %></td>
       	<td><%= company.short_description %></td>
-      	<td class="center"><%= company.hardware_development? ? 'X' : '' %></td>
-      	<td class="center"><%= company.hardware_production? ? 'X' : '' %></td>
-      	<td class="center"><%= company.firmware_development? ? 'X' : '' %></td>
-      	<td class="center"><%= company.driver? ? 'X' : '' %></td>
+      	<% @custom_fields.each do |custom_value| %>
+          <td class="center">
+            <%=h show_value(company.custom_value_for(custom_value)) %>
+          </th>
+        <% end %>
       	<td class="center"><%= render_projects_sentence(company) %></td>
       	<% if User.current.allowed_to?(:edit_company, nil, :global => true) %>
         	<td class="buttons">

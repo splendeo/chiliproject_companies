@@ -6,6 +6,9 @@ en:
   field_driver: "Linux driver development"
   field_short_description: "Short description"
   
+  label_company: "Company"
+  label_company_plural: "Companies"
+  
   activerecord:
     models:
       company:

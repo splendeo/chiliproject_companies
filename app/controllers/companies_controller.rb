@@ -5,10 +5,11 @@ class CompaniesController < ApplicationController
   before_filter :get_compnay, :only => [:show, :edit, :update, :destroy]
   before_filter :fill_selects, :only => [:new, :create, :edit, :update]
   
-  helper :attachments, :projects
+  helper :attachments, :projects, :custom_fields
   
   def index
     @companies = Company.all
+    @custom_fields = CompanyCustomField.all(:order => 'position ASC')
   end
   
   def show
