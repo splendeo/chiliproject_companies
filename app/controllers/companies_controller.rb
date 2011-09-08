@@ -10,6 +10,7 @@ class CompaniesController < ApplicationController
   def index
     @companies = Company.all
     @custom_fields = CompanyCustomField.all(:order => 'position ASC')
+    @settings = Setting.plugin_chiliproject_companies
   end
   
   def show

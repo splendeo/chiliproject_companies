@@ -17,6 +17,12 @@ Redmine::Plugin.register :chiliproject_companies do
   url 'https://github.com/splendeo/chiliproject_companies'
   author_url 'http://www.splendeo.es'
   
+  settings  :partial => 'settings/companies',
+            :default => {
+              'top_text' => '',
+              'bottom_text' => ''
+            }
+  
   menu :admin_menu, :companies, { :controller => 'companies', :action => 'index' }, :caption => 'Companies'
   menu :top_menu, :companies, { :controller => 'companies', :action => 'index' }, :caption => 'Companies', :after => :projects
 end
