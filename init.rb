@@ -23,6 +23,6 @@ Redmine::Plugin.register :chiliproject_companies do
               'bottom_text' => ''
             }
   
-  menu :admin_menu, :companies, { :controller => 'companies', :action => 'index' }, :caption => 'Companies'
+  menu :admin_menu, :companies, { :controller => 'settings', :action => 'plugin', :id => 'chiliproject_companies' }, :caption => 'Companies'
   menu :top_menu, :companies, { :controller => 'companies', :action => 'index' }, :caption => 'Companies', :after => :projects
 end
