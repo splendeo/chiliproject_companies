@@ -9,7 +9,8 @@ class Company < ActiveRecord::Base
   validates_format_of :identifier, :with => /^(?!\d+$)[a-z0-9\-_]*$/
   
   acts_as_customizable
-  acts_as_attachable
+  
+  acts_as_attachable :view_permission => :view_companies
   
   def linked_with_user(user)
     users.include?(user)
@@ -27,7 +28,16 @@ class Company < ActiveRecord::Base
     custom_values.any?{ |c| c.value.present? }
   end
   
-  def attachments_deletable?(usr=User.current)
+  def attachments_deletable?(user = User.current)
+    return user.admin?
+  end
+  
+  def attachments_visible?(user = User.current)
     true
   end
+  
+  def project
+    nil
+  end
+  
 end

@@ -25,4 +25,6 @@ Redmine::Plugin.register :chiliproject_companies do
   
   menu :admin_menu, :companies, { :controller => 'settings', :action => 'plugin', :id => 'chiliproject_companies' }, :caption => 'Companies'
   menu :top_menu, :companies, { :controller => 'companies', :action => 'index' }, :caption => 'Companies', :after => :projects
+  
+  permission :view_companies, :companies => [:show, :index]
 end
