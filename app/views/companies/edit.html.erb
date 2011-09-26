@@ -1,5 +1,5 @@
-<h2><%= link_to "Companies", companies_path %> &#187; <%= @company.name %></h2>
+<h2><%= link_to t(:label_company_plural), companies_path %> &#187; <%= @company.name %></h2>
 
 <%= render :partial => 'form' %>
 
-<% html_title "Edit #{@company.name}" %>
+<% html_title "#{t(:label_company_plural)} - #{@company.name}" %>

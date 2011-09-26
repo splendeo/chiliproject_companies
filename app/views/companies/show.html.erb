@@ -7,49 +7,45 @@
 	<% end %>
 </div>
 
-<h2><%= link_to "Companies", companies_path %> &#187; <%= @company.name %></h2>
-<p><b><%= @company.short_description %></b></p>
-<% if @company.url.present? %>
-  <p><b>Website</b>: <%= link_to @company.url, @company.url, :class => "external" %>
-<% end %>
+<h2><%= link_to t(:label_company_plural), companies_path %> &#187; <%= @company.name %></h2>
 
-<div class="splitcontentright">
-  <% if @company.has_custom_values? %>
-    <div class="news box">
-      <h3>Additional Data</h3>
-      <% @company.custom_values.each do |custom_value| %>
-        <p>
-          <% if !custom_value.value.blank? %>
-            <b><%= custom_value.custom_field.name %></b>: <%=h show_value(custom_value) %>
-          <% end %>
-        </p>
-      <% end %>
-    </div>
+<p><h3><%= @company.short_description %></h3></p>
+
+<div class="splitcontentleft">
+  <% if @company.url.present? %>
+    <p><%= link_to @company.url, @company.url, :class => "external" %></p>
   <% end %>
-    
-	<% if @projects.any? %>
-  	<div class="projects box">
-    	<h3>Projects</h3>
-    	<%= render_project_hierarchy @projects %>
-    </div>
-	<% end %>
 
-  <% if @users.any? %>
-  	<div class="members box">
-    	<h3>Users</h3>
-  		<ul>
-    		<% @users.each do |user| %>
-    			<li><%= link_to user.name, user %></li>
-  		  <% end %>
-  		</ul>
-  	</div>
-	<% end %>
+  <% if @company.has_custom_values? %>
+    <% @company.custom_values.each do |custom_value| %>
+      <% unless custom_value.value.blank? %>
+        <p><b><%= custom_value.custom_field.name %></b>: <%=h show_value(custom_value) %></p>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= textilizable @company.description %>
+
+  <p><%= logo_of(@company) %></p>
 </div>
 
-<%= textilizable @company.description %>
+<div class="splitcontentright">
+  <% if @projects.any? %>
+    <div class="projects box">
+      <h3><%= t(:label_project_plural) %></h3>
+      <%= render_project_hierarchy @projects %>
+    </div>
+  <% end %>
+  <% if @users.any? %>
+    <div class="members box">
+      <h3><%= t(:label_member_plural) %></h3>
+      <ul>
+        <% @users.each do |user| %>
+          <li><%= link_to user.name, user %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+</div>
 
-<p>
-<%= logo_of(@company) %>
-</p>
-
-<% html_title "Company: #{@company.name}" %>
+<% html_title "#{t(:label_company)} - #{@company.name}" %>

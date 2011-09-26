@@ -1,12 +1,12 @@
-<% html_title "Companies" %>
+<% html_title t(:label_company_plural) %>
 
 <div class="contextual">
   <% if User.current.allowed_to?(:add_company, nil, :global => true) %>
-    <%= link_to "New company", new_company_path, :class => 'icon icon-add' %>
+    <%= link_to t(:label_company_new), new_company_path, :class => 'icon icon-add' %>
   <% end %>
 </div>
 
-<h2>Companies</h2>
+<h2><%= t(:label_company_plural) %></h2>
 
 <%= textilizable @settings[:top_text] %>
 
@@ -14,12 +14,13 @@
   <table class="list">
     <thead>
       <tr>
-  	    <th>Name</th>
-      	<th>Description</th>
+        <th><%= t(:field_name) %></th>
+        <th><%= t(:field_description) %></th>
       	<% @custom_fields.each do |custom_value| %>
           <th><%= custom_value.name %></th>
         <% end %>
-        <th>Projects</th>
+        <th><%= t(:label_project_plural) %></th>
+        <th><%= t(:label_member_plural) %></th>
       	<% if User.current.allowed_to?(:add_company, nil, :global => true) %>
       	  <th></th>
       	<% end %>
@@ -28,14 +29,15 @@
     <tbody>
       <% @companies.each do |company| %>
         <tr class="<%= cycle("odd", "even") %>">
-        	<td class="name"><%= link_to company.name, company %></td>
+        	<td class="name center"><%= link_to company.name, company %></td>
         	<td><%= company.short_description %></td>
         	<% @custom_fields.each do |custom_value| %>
             <td class="center">
               <%=h show_value(company.custom_value_for(custom_value)) %>
             </th>
           <% end %>
-        	<td class="center"><%= render_projects_sentence(company) %></td>
+        	<td class="center"><%= link_to company.projects.count, company %></td>
+        	<td class="center"><%= link_to company.users.count, company %></td>
         	<% if User.current.allowed_to?(:edit_company, nil, :global => true) %>
           	<td class="buttons">
           	  <%= link_to l(:button_edit), edit_company_path(company) %> | 

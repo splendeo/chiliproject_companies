@@ -3,27 +3,22 @@
 <% form_for @company, :builder => TabularFormBuilder, :html => {:multipart => true} do |f| %>
 
   <div class="box tabular ">
-    <% if @company.custom_field_values.size > 0 %>
-      <div class="splitcontentright">
-        <h4>Aditional data</h4>
-        <% @company.custom_field_values.each do |value| %>
-        	<p><%= custom_field_tag_with_label :company, value %></p>
-        <% end %>
-    	</div>
-    <% end %>
-
     <p><%= f.text_field :name, :required => true %></p>
     <p><%= f.text_field :identifier, :required => true %></p>
     <p><%= f.text_field :short_description, :required => true %></p>
     <p><%= f.text_area :description %></p>
     <p><%= f.text_field :url %></p>
 
+    <% @company.custom_field_values.each do |value| %>
+      <p><%= custom_field_tag_with_label :company, value %></p>
+    <% end %>
+
     <p><%= logo_of(@company) %></p>
     <p><%= f.file_field :logo, :size => 30 %> </p>
   </div>
 
   <div class="box tabular">
-    <h3>Users</h3>
+    <h3><%= t(:label_member_plural) %></h3>
     <p>
       <% @users.each do |user| %>
         <%= check_box_tag "company[user_ids][]", user.id, @company.linked_with_user(user) %> <%= user.name %><br />
@@ -32,7 +27,7 @@
   </div>
 
   <div class="box tabular">
-    <h3>Projects</h3>
+    <h3><%= t(:label_project_plural) %></h3>
     <p>
       <% @projects.each do |project| %>
         <%= check_box_tag "company[project_ids][]", project.id, @company.linked_with_project(project) %> <%= project.name %><br />

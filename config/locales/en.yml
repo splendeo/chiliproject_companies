@@ -1,15 +1,14 @@
 # English strings go here for Rails i18n
 en:
-  field_hardware_development: "Hardware development"
-  field_hardware_production: "Hardware production"
-  field_firmware_development: "Firmware development"
-  field_driver: "Linux driver development"
   field_short_description: "Short description"
   field_logo: "Logo"
-  
+  field_url: "Website url"
+
   label_company: "Company"
   label_company_plural: "Companies"
-  
+  label_company_new: "New company"
+  label_additional_data: "Additional Data"
+
   activerecord:
     models:
       company:
