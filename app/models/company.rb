@@ -10,8 +10,9 @@ class Company < ActiveRecord::Base
   validates_format_of :identifier, :with => /^(?!\d+$)[a-z0-9\-_]*$/
 
   acts_as_customizable
-
   acts_as_attachable :view_permission => :view_companies
+
+  after_save :attach_logo
 
   def linked_with_user(user)
     users.include?(user)
@@ -43,11 +44,17 @@ class Company < ActiveRecord::Base
 
   def logo=(logo_file)
     logo.destroy if logo
-    Attachment.attach_files(self, "1" => {'file' => logo_file, 'description' => 'logo'}) if logo_file
+    @logo_file = logo_file
   end
 
   def logo_file_exists?
     logo && FileTest.exists?(logo.diskfile) && logo.image?
+  end
+
+private
+
+  def attach_logo
+    Attachment.attach_files(self, "1" => {'file' => @logo_file, 'description' => 'logo'}) if @logo_file
   end
 
 end

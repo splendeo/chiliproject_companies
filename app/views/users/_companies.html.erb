@@ -1,6 +1,6 @@
 <% if @user.companies.size >= 1 %>
   <div class="projects box">
-    <h3><%= Company.human_name(:count => @user.companies.size) %></h3>
+    <h3><%= t(:label_company_plural) %></h3>
     <p>
       <% @user.companies.each do |company| %>
         <%= link_to company.name, company %><br />

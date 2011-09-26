@@ -1,16 +1,15 @@
-<p>You may specify two texts that will be shown on the companies index page, on of them over the companies table and the other below it.</p>
+<p><%= t(:label_companies_settings_intro) %></p>
 
 <p>
-  <label>Top text</label><%= text_area_tag 'settings[top_text]', @settings['top_text'], :rows => 5, :class => 'wiki-edit' %>
+<label><%= t(:field_top_text) %></label><%= text_area_tag 'settings[top_text]', @settings['top_text'], :rows => 5, :class => 'wiki-edit' %>
 </p>
 <%= wikitoolbar_for 'settings_top_text' %>
 
 <p>
-  <label>Bottom text</label><%= text_area_tag 'settings[bottom_text]', @settings['bottom_text'], :rows => 5, :class => 'wiki-edit' %>
+<label><%= t(:field_bottom_text) %></label><%= text_area_tag 'settings[bottom_text]', @settings['bottom_text'], :rows => 5, :class => 'wiki-edit' %>
 </p>
 <%= wikitoolbar_for 'settings_bottom_text' %>
 
 <p>
-  More settings: <%= link_to "Additional data", :controller => 'custom_fields', :action => 'index', :params => {:tab => 'CompanyCustomField'} %><br />
-  Save before clicking on this link
+  <%= link_to t(:label_custom_field_plural), :controller => 'custom_fields', :action => 'index', :params => {:tab => 'CompanyCustomField'} %> <%= t(:notice_save_before_clicking) %>
 </p>

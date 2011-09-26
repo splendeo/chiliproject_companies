@@ -26,7 +26,7 @@ class CompaniesController < ApplicationController
     @company = Company.new(params[:company])
     if @company.save
       render_attachment_warning_if_needed(@company)
-      flash[:notice] = "Successfully created company"
+      flash[:notice] = t(:notice_successful_create)
       redirect_to @company
     else
       render :action => 'new'
@@ -41,7 +41,7 @@ class CompaniesController < ApplicationController
     params[:company][:project_ids] ||= []
     if @company.update_attributes(params[:company])
       render_attachment_warning_if_needed(@company)
-      flash[:notice] = "Successfully updated company"
+      flash[:notice] = t(:notice_successful_update)
       redirect_to @company
     else
       render :action => 'edit'
@@ -50,7 +50,7 @@ class CompaniesController < ApplicationController
 
   def destroy
     @company.destroy
-    flash[:notice] = "Successfully deleted company"
+    flash[:notice] = t(:notice_cuscessful_delete)
     redirect_to companies_url
   end
 
