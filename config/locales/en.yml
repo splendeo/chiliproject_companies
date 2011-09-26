@@ -5,6 +5,7 @@ en:
   field_firmware_development: "Firmware development"
   field_driver: "Linux driver development"
   field_short_description: "Short description"
+  field_logo: "Logo"
   
   label_company: "Company"
   label_company_plural: "Companies"

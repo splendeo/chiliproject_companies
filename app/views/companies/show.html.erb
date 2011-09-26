@@ -48,6 +48,8 @@
 
 <%= textilizable @company.description %>
 
-<%= link_to_attachments @company %>
+<p>
+<%= logo_of(@company) %>
+</p>
 
 <% html_title "Company: #{@company.name}" %>
