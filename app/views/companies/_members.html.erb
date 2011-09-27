@@ -29,7 +29,7 @@
   <% end %>
 </div>
 
-<% available_users = User.active.find(:all, :limit => 100, :order => 'type, login, lastname ASC') - @company.users %>
+<% available_members = User.active.find(:all, :limit => 100, :order => 'type, login, lastname ASC') - @company.users %>
 
 <div class="splitcontentright">
   <% if available_users.any? %>
@@ -49,8 +49,8 @@
                           :url => { :controller => 'companies', :action => 'autocomplete_for_member', :id => @company },
                           :with => 'q')
         %>
-        <div id="members">
-          <%= members_check_box_tags 'member[user_ids][]', available_users %>
+        <div id="available-members">
+          <%= members_check_box_tags 'member[user_ids][]', available_members %>
         </div>
 
         <p><%= submit_tag l(:button_add), :id => 'member-add-submit' %></p>
