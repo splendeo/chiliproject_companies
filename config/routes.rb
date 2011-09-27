@@ -1,7 +1,3 @@
-if defined? map
-  map.resources :companies
-else
-  ActionController::Routing::Routes.draw do |map|
-    map.resources :companies
-  end
+ActionController::Routing::Routes.draw do |map|
+  map.resources :companies, :member => { :delete_member => :post, :list_members => :get }
 end

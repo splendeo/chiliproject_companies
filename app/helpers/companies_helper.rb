@@ -7,6 +7,14 @@ module CompaniesHelper
     end
   end
 
+  def members_check_box_tags(name, members)
+    s = []
+    members.sort.each do |member|
+      s << "<label>#{ check_box_tag name, member.id, false } #{h member}</label>\n"
+    end
+    s.join
+  end
+
   private
 
   def logo_url(logo)

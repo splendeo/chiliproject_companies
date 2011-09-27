@@ -12,6 +12,9 @@ en:
   label_company_new: "New company"
   label_additional_data: "Additional Data"
 
+  label_member_search: "Search members by name"
+
+
   label_companies_settings_intro: "You may specify two texts that will be shown on the companies index page, on of them over the companies table and the other below it."
 
   notice_save_before_clicking: "(Save before clicking on this link)"

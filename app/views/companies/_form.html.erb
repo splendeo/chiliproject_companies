@@ -17,14 +17,11 @@
     <p><%= f.file_field :logo, :size => 30 %> </p>
   </div>
 
-  <div class="box tabular">
-    <h3><%= t(:label_member_plural) %></h3>
-    <p>
-      <% @users.each do |user| %>
-        <%= check_box_tag "company[user_ids][]", user.id, @company.linked_with_user(user) %> <%= user.name %><br />
-      <% end %>
-    </p>
+  <div id="members-list">
+    <%= render :partial => 'members' %>
   </div>
+
+  <div style="clear: both;"></div>
 
   <div class="box tabular">
     <h3><%= t(:label_project_plural) %></h3>

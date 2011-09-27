@@ -2,7 +2,7 @@ class CompaniesController < ApplicationController
   unloadable
 
   before_filter :require_admin, :except => [:index, :show]
-  before_filter :get_compnay, :only => [:show, :edit, :update, :destroy]
+  before_filter :get_company, :only => [:show, :edit, :update, :destroy, :delete_member, :list_members]
   before_filter :fill_selects, :only => [:new, :create, :edit, :update]
 
   helper :projects, :custom_fields
@@ -54,6 +54,16 @@ class CompaniesController < ApplicationController
     redirect_to companies_url
   end
 
+  def delete_member
+    member = @company.users.find(params[:member_id])
+    @company.users.delete(member)
+    redirect_to :controller => 'companies', :action => 'list_members', :id => @company
+  end
+
+  def list_members
+    render :partial => 'members'
+  end
+
   private
 
   def fill_selects
@@ -61,7 +71,7 @@ class CompaniesController < ApplicationController
     @projects = Project.active.all
   end
 
-  def get_compnay
+  def get_company
     @company = Company.find_by_identifier(params[:id])
   rescue ActiveRecord::RecordNotFound
     render_404
