@@ -3,8 +3,8 @@ class CompaniesController < ApplicationController
 
   before_filter :require_admin, :except => [:index, :show]
   before_filter :get_company_by_identifier, :except => [:index, :new, :create]
-  before_filter :get_members, :only => [:edit, :update, :show, :members]
-  before_filter :get_projects, :only => [:edit, :update, :show, :projects]
+  before_filter :get_members, :only => [:edit, :update, :show]
+  before_filter :get_projects, :only => [:edit, :update, :show]
 
   helper :projects, :custom_fields
 
@@ -58,10 +58,6 @@ class CompaniesController < ApplicationController
     render :partial => 'members'
   end
 
-  def members
-    render :partial => 'members'
-  end
-
   def add_members
     member_ids = params[:member_ids]
     @company.member_ids += member_ids
@@ -80,10 +76,6 @@ class CompaniesController < ApplicationController
     project = Project.find(params[:project_id])
     @company.projects.delete(project)
     get_projects
-    render :partial => 'projects'
-  end
-
-  def projects
     render :partial => 'projects'
   end
 
