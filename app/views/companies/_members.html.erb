@@ -37,7 +37,8 @@
       <fieldset>
         <legend><%= l(:label_member_new) %></legend>
 
-        <p><%= label_tag "member_search", l(:label_member_search) %><%= text_field_tag 'member_search', nil %></p>
+        <p><%= label_tag "member_search", l(:label_member_search), :class => 'filter_label' %>
+        <%= text_field_tag 'member_search', nil %></p>
         <%= observe_field( :member_search,
                            :method => :get,
                            :frequency => 0.5,
@@ -45,7 +46,7 @@
                            :url => {:action => "filter_available_members", :controller=>"companies" , :id => @company },
                            :with => "q" )
         %>
-        <div id="available_members">
+        <div id="available_members" class="filtered_results">
           <%= render :partial => 'available_members' %>
         </div>
 

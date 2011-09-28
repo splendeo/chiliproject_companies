@@ -1,0 +1,28 @@
+
+.controller-companies .filtered_results {
+  max-height: 400px;
+  overflow: auto;
+}
+
+.controller-companies legend {
+  font-weight: bold;
+}
+
+.controller-companies .filter_label {
+  display: block;
+}
+
+.controller-companies #members .splitcontentleft,
+.controller-companies #projects .splitcontentleft {
+  width: 64%;
+}
+
+.controller-companies #members .splitcontentright,
+.controller-companies #projects .splitcontentright {
+  width: 34%;
+}
+
+.controller-companies #members,
+.controller-companies #projects {
+  margin-top: 30px;
+}

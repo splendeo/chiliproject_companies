@@ -78,7 +78,7 @@ class CompaniesController < ApplicationController
   private
 
   def get_users
-    @users = @company.users
+    @users = @company.users.sorted_alphabetically
     @available_members = User.active.sorted_alphabetically.find(:all, :limit => 100) - @users
   end
 
