@@ -3,7 +3,11 @@ module CompaniesHelper
   def logo_of(company)
     if company.logo_file_exists?
       url = logo_url(company.logo)
-      link_to(image_tag(url), url)
+      if company.url.present?
+        link_to(image_tag(url), company.url)
+      else
+        image_tag(url)
+      end
     end
   end
 
