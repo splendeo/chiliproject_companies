@@ -10,7 +10,7 @@
             <td class="buttons">
               <%= link_to_remote( l(:button_delete),
                                   { :method => :post,
-                                    :update => 'members-list',
+                                    :update => 'members',
                                     :url => { :controller => 'companies',
                                               :action => 'delete_member',
                                               :id => @company,
@@ -32,12 +32,13 @@
 <div class="splitcontentright">
   <% if @available_members.any? %>
     <% remote_form_for( :member,
-                        :url => { :controller => 'companies', :action => 'add_members', :id => @company },
-                        :method => :post) do |f| %>
+                       :url => { :controller => 'companies', :action => 'add_members', :id => @company },
+                       :update => :members,
+                       :method => :post) do |f| %>
       <fieldset>
         <legend><%= l(:label_member_new) %></legend>
 
-        <p><%= label_tag "member_search", l(:label_member_search), :class => 'filter_label' %>
+        <p><%= label_tag "member_search", l(:label_member_filter), :class => 'filter_label' %>
         <%= text_field_tag 'member_search', nil %></p>
         <%= observe_field( :member_search,
                            :method => :get,

@@ -25,19 +25,14 @@
 
   <div style="clear: both;"></div>
 
-  <div id="members">
-    <%= render :partial => 'members' %>
+  <div id="projects">
+    <%= render :partial => 'projects' %>
   </div>
 
   <div style="clear: both;"></div>
 
-  <div class="box tabular">
-    <h3><%= t(:label_project_plural) %></h3>
-    <p>
-      <% @projects.each do |project| %>
-        <%= check_box_tag "company[project_ids][]", project.id, @company.linked_with_project(project) %> <%= project.name %><br />
-      <% end %>
-    </p>
+  <div id="members">
+    <%= render :partial => 'members' %>
   </div>
 
 <% end %>

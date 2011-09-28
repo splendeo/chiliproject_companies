@@ -56,7 +56,8 @@ class CompaniesController < ApplicationController
   def delete_member
     member = User.find(params[:member_id])
     @company.users.delete(member)
-    update_members_with_javascript
+    get_users
+    render :partial => 'members'
   end
 
   def members
@@ -66,13 +67,39 @@ class CompaniesController < ApplicationController
   def add_members
     member_ids = params[:member_ids]
     @company.user_ids += member_ids
-    update_members_with_javascript
+    get_users
+    render :partial => 'members'
   end
 
   def filter_available_members
-    @users = @company.users
+    @users = @company.users.sorted_alphabetically
     @available_members = User.active.like(params[:q]).sorted_alphabetically.find(:all, :limit => 100) - @users
     render :partial => 'available_members'
+  end
+
+
+  def delete_project
+    project = Project.find(params[:project_id])
+    @company.projects.delete(project)
+    get_projects
+    render :partial => 'projects'
+  end
+
+  def projects
+    render :partial => 'projects'
+  end
+
+  def add_projects
+    project_ids = params[:project_ids]
+    @company.project_ids += project_ids
+    get_projects
+    render :partial => 'projects'
+  end
+
+  def filter_available_projects
+    @projects = @company.projects.sorted_alphabetically
+    @available_projects = Project.active.like(params[:q]).sorted_alphabetically.find(:all, :limit => 100) - @projects
+    render :partial => 'available_projects'
   end
 
   private
@@ -83,25 +110,8 @@ class CompaniesController < ApplicationController
   end
 
   def get_projects
-    @projects = @company.projects
-    @available_projects = Project.active.find(:all, :limit => 100, :order => 'name ASC') - @projects
-  end
-
-  def update_members_with_javascript
-    get_users
-    update_with_javascript('members')
-  end
-
-  def update_projects_with_javascript
-    get_projects
-    update_with_javascript('projects')
-  end
-
-  def update_with_javascript(id)
-    render(:update) { |page|
-      page.replace_html id, :partial => id
-      page << 'hideOnLoad()'
-    }
+    @projects = @company.projects.sorted_alphabetically
+    @available_projects = Project.active.sorted_alphabetically.find(:all, :limit => 100, :order => 'name ASC') - @projects
   end
 
   def get_company_by_identifier

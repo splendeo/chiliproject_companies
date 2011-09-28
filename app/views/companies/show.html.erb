@@ -32,13 +32,13 @@
 <div class="splitcontentright">
   <% if @projects.any? %>
     <div class="projects box">
-      <h3><%= t(:label_project_plural) %></h3>
+      <h3 class="icon icon-projects"><%= t(:label_project_plural) %></h3>
       <%= render_project_hierarchy @projects %>
     </div>
   <% end %>
   <% if @users.any? %>
     <div class="members box">
-      <h3><%= t(:label_member_plural) %></h3>
+      <h3 class="icon icon-user"><%= t(:label_member_plural) %></h3>
       <ul>
         <% @users.each do |user| %>
           <li><%= link_to user.name, user %></li>
@@ -49,3 +49,7 @@
 </div>
 
 <% html_title "#{t(:label_company)} - #{@company.name}" %>
+
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'companies.css', :plugin => 'chiliproject_companies' %>
+<% end %>

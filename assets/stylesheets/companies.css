@@ -26,3 +26,12 @@
 .controller-companies #projects {
   margin-top: 30px;
 }
+
+.controller-companies .members h3,
+.controller-companies .projects h3 {
+  margin-top: 0;
+}
+
+.controller-companies .box {
+  padding: 10px;
+}
