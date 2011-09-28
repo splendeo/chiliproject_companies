@@ -32,7 +32,6 @@
 <div class="splitcontentright">
   <% if @available_members.any? %>
     <% remote_form_for( :member,
-                        @member,
                         :url => { :controller => 'companies', :action => 'add_members', :id => @company },
                         :method => :post) do |f| %>
       <fieldset>
@@ -40,13 +39,14 @@
 
         <p><%= label_tag "member_search", l(:label_member_search) %><%= text_field_tag 'member_search', nil %></p>
         <%= observe_field( :member_search,
+                           :method => :get,
                            :frequency => 0.5,
-                           :update => :members,
-                           :url => { :controller => 'companies', :action => 'filter_available_members', :id => @company },
-                           :with => 'q')
+                           :update => :available_members,
+                           :url => {:action => "filter_available_members", :controller=>"companies" , :id => @company },
+                           :with => "q" )
         %>
-        <div id="available-members">
-          <%= companies_check_box_tags('member_ids[]', @available_members) %>
+        <div id="available_members">
+          <%= render :partial => 'available_members' %>
         </div>
 
         <p><%= submit_tag l(:button_add) %></p>

@@ -56,8 +56,7 @@ class CompaniesController < ApplicationController
   def delete_member
     member = User.find(params[:member_id])
     @company.users.delete(member)
-    get_users
-    update_with_javascript('members')
+    update_members_with_javascript
   end
 
   def members
@@ -67,20 +66,35 @@ class CompaniesController < ApplicationController
   def add_members
     member_ids = params[:member_ids]
     @company.user_ids += member_ids
-    get_users
-    update_with_javascript('members')
+    update_members_with_javascript
+  end
+
+  def filter_available_members
+    @users = @company.users
+    @available_members = User.active.like(params[:q]).sorted_alphabetically.find(:all, :limit => 100) - @users
+    render :partial => 'available_members'
   end
 
   private
 
   def get_users
     @users = @company.users
-    @available_members = User.active.find(:all, :limit => 100, :order => 'login, lastname ASC') - @users
+    @available_members = User.active.sorted_alphabetically.find(:all, :limit => 100) - @users
   end
 
   def get_projects
     @projects = @company.projects
-    @available_projects = Project.active.find(:all, :limit => 100, :order => 'lft') - @projects
+    @available_projects = Project.active.find(:all, :limit => 100, :order => 'name ASC') - @projects
+  end
+
+  def update_members_with_javascript
+    get_users
+    update_with_javascript('members')
+  end
+
+  def update_projects_with_javascript
+    get_projects
+    update_with_javascript('projects')
   end
 
   def update_with_javascript(id)
