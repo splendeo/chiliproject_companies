@@ -3,13 +3,13 @@ class CompaniesController < ApplicationController
 
   before_filter :require_admin, :except => [:index, :show]
   before_filter :get_company_by_identifier, :except => [:index, :new, :create]
-  before_filter :get_users, :only => [:new, :create, :edit, :update, :show, :members]
-  before_filter :get_projects, :only => [:new, :create, :edit, :update, :show, :projects]
+  before_filter :get_users, :only => [:edit, :update, :show, :members]
+  before_filter :get_projects, :only => [:edit, :update, :show, :projects]
 
   helper :projects, :custom_fields
 
   def index
-    @companies = Company.all
+    @companies = Company.all(:order => 'name ASC')
     @custom_fields = CompanyCustomField.all(:order => 'position ASC')
     @settings = Setting.plugin_chiliproject_companies
   end
