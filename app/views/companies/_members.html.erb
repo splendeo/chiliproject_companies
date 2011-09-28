@@ -8,8 +8,8 @@
           <tr id="member-<%= member.id %>" class="<%= cycle 'odd', 'even' %> member">
             <td class="user"><%= link_to_user member %></td>
             <td class="buttons">
-              <%= link_to_remote( l(:button_delete), 
-                                 {  :method => :post,
+              <%= link_to_remote( l(:button_delete),
+                                  { :method => :post,
                                     :update => 'members-list',
                                     :url => { :controller => 'companies',
                                               :action => 'delete_member',
@@ -29,31 +29,27 @@
   <% end %>
 </div>
 
-<% available_members = User.active.find(:all, :limit => 100, :order => 'type, login, lastname ASC') - @company.users %>
-
 <div class="splitcontentright">
-  <% if available_users.any? %>
-    <% remote_form_for(:member,
-                       @member,
-                       :url => {:controller => 'members', :action => 'new', :id => @company},
-                       :method => :post,
-                       :loading => '$(\'member-add-submit\').disable();',
-                       :complete => 'if($(\'member-add-submit\')) $(\'member-add-submit\').enable();') do |f| %>
+  <% if @available_members.any? %>
+    <% remote_form_for( :member,
+                        @member,
+                        :url => { :controller => 'companies', :action => 'add_members', :id => @company },
+                        :method => :post) do |f| %>
       <fieldset>
         <legend><%= l(:label_member_new) %></legend>
 
         <p><%= label_tag "member_search", l(:label_member_search) %><%= text_field_tag 'member_search', nil %></p>
-        <%= observe_field(:member_search,
-                          :frequency => 0.5,
-                          :update => :members,
-                          :url => { :controller => 'companies', :action => 'autocomplete_for_member', :id => @company },
-                          :with => 'q')
+        <%= observe_field( :member_search,
+                           :frequency => 0.5,
+                           :update => :members,
+                           :url => { :controller => 'companies', :action => 'filter_available_members', :id => @company },
+                           :with => 'q')
         %>
         <div id="available-members">
-          <%= members_check_box_tags 'member[user_ids][]', available_members %>
+          <%= companies_check_box_tags('member_ids[]', @available_members) %>
         </div>
 
-        <p><%= submit_tag l(:button_add), :id => 'member-add-submit' %></p>
+        <p><%= submit_tag l(:button_add) %></p>
       </fieldset>
     <% end %>
   <% end %>

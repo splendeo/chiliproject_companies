@@ -7,10 +7,10 @@ module CompaniesHelper
     end
   end
 
-  def members_check_box_tags(name, members)
+  def companies_check_box_tags(name, items)
     s = []
-    members.sort.each do |member|
-      s << "<label>#{ check_box_tag name, member.id, false } #{h member}</label>\n"
+    items.each do |item|
+      s << "<label>#{ check_box_tag name, item.id, false } #{h item.name}</label><br/>\n"
     end
     s.join
   end
