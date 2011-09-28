@@ -37,7 +37,7 @@
             </th>
           <% end %>
         	<td class="center"><%= link_to company.projects.count, company %></td>
-        	<td class="center"><%= link_to company.users.count, company %></td>
+        	<td class="center"><%= link_to company.members.count, company %></td>
         	<% if User.current.allowed_to?(:edit_company, nil, :global => true) %>
           	<td class="buttons">
               <%= link_to l(:button_edit), edit_company_path(company), :class => 'icon icon-edit' %> | 

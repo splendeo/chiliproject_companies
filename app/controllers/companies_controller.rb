@@ -3,7 +3,7 @@ class CompaniesController < ApplicationController
 
   before_filter :require_admin, :except => [:index, :show]
   before_filter :get_company_by_identifier, :except => [:index, :new, :create]
-  before_filter :get_users, :only => [:edit, :update, :show, :members]
+  before_filter :get_members, :only => [:edit, :update, :show, :members]
   before_filter :get_projects, :only => [:edit, :update, :show, :projects]
 
   helper :projects, :custom_fields
@@ -36,8 +36,6 @@ class CompaniesController < ApplicationController
   end
 
   def update
-    params[:company][:user_ids] ||= []
-    params[:company][:project_ids] ||= []
     if @company.update_attributes(params[:company])
       render_attachment_warning_if_needed(@company)
       flash[:notice] = t(:notice_successful_update)
@@ -55,8 +53,8 @@ class CompaniesController < ApplicationController
 
   def delete_member
     member = User.find(params[:member_id])
-    @company.users.delete(member)
-    get_users
+    @company.members.delete(member)
+    get_members
     render :partial => 'members'
   end
 
@@ -66,14 +64,14 @@ class CompaniesController < ApplicationController
 
   def add_members
     member_ids = params[:member_ids]
-    @company.user_ids += member_ids
-    get_users
+    @company.member_ids += member_ids
+    get_members
     render :partial => 'members'
   end
 
   def filter_available_members
-    @users = @company.users.sorted_alphabetically
-    @available_members = User.active.like(params[:q]).sorted_alphabetically.find(:all, :limit => 100) - @users
+    @members = @company.members.sorted_alphabetically
+    @available_members = User.active.like(params[:q]).sorted_alphabetically.find(:all, :limit => 100) - @members
     render :partial => 'available_members'
   end
 
@@ -104,9 +102,9 @@ class CompaniesController < ApplicationController
 
   private
 
-  def get_users
-    @users = @company.users.sorted_alphabetically
-    @available_members = User.active.sorted_alphabetically.find(:all, :limit => 100) - @users
+  def get_members
+    @members = @company.members.sorted_alphabetically
+    @available_members = User.active.sorted_alphabetically.find(:all, :limit => 100) - @members
   end
 
   def get_projects

@@ -1,12 +1,12 @@
 <div class="splitcontentleft">
-  <% if @users.any? %>
+  <% if @members.any? %>
     <table class="list members">
       <thead><tr><th><%= l(:label_member_plural) %></th><th></th></tr></thead>
       <tbody>
-        <% @users.each do |member| %>
+        <% @members.each do |member| %>
           <% next if member.new_record? %>
           <tr id="member-<%= member.id %>" class="<%= cycle 'odd', 'even' %> member">
-            <td class="user"><%= link_to_user member %></td>
+            <td class="member"><%= link_to_user member %></td>
             <td class="buttons">
               <%= link_to_remote( l(:button_delete),
                                   { :method => :post,

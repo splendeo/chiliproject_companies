@@ -36,12 +36,12 @@
       <%= render_project_hierarchy @projects %>
     </div>
   <% end %>
-  <% if @users.any? %>
+  <% if @members.any? %>
     <div class="members box">
       <h3 class="icon icon-user"><%= t(:label_member_plural) %></h3>
       <ul>
-        <% @users.each do |user| %>
-          <li><%= link_to user.name, user %></li>
+        <% @members.each do |member| %>
+          <li><%= link_to member.name, member %></li>
         <% end %>
       </ul>
     </div>

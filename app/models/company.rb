@@ -1,7 +1,7 @@
 class Company < ActiveRecord::Base
   unloadable
 
-  has_and_belongs_to_many :users
+  has_and_belongs_to_many :members, :class_name => 'User'
   has_and_belongs_to_many :projects
   has_one :logo, :class_name => "Attachment", :as  => :container, :conditions => "#{Attachment.table_name}.description = 'logo'", :dependent => :destroy
 
@@ -13,14 +13,6 @@ class Company < ActiveRecord::Base
   acts_as_attachable :view_permission => :view_companies
 
   after_save :attach_logo
-
-  def linked_with_user(user)
-    users.include?(user)
-  end
-
-  def linked_with_project(project)
-    projects.include?(project)
-  end
 
   def to_param
     @to_param ||= identifier.to_s
