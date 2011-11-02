@@ -47,7 +47,7 @@ class CompaniesController < ApplicationController
 
   def destroy
     @company.destroy
-    flash[:notice] = t(:notice_cuscessful_delete)
+    flash[:notice] = t(:notice_suscessful_delete)
     redirect_to companies_url
   end
 
