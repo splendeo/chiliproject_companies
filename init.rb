@@ -2,10 +2,20 @@ require 'redmine'
 require 'dispatcher'
 
 Dispatcher.to_prepare :chiliproject_companies do
+  require_dependency 'principal'
+  require_dependency 'user'
   require_dependency 'chiliproject_companies/patches/user_patch'
+  User.send(:include, ChiliprojectsCompanies::Patches::UserPatch)
+
+  require_dependency 'project'
   require_dependency 'chiliproject_companies/patches/project_patch'
+  Project.send(:include, ChiliprojectsCompanies::Patches::ProjectPatch)
+
+  require_dependency 'acts_as_customizable'
+  require_dependency 'custom_fields_helper'
   require_dependency 'chiliproject_companies/patches/custom_fields_helper_patch'
-  
+  CustomFieldsHelper.send(:include, ChiliprojectsCompanies::Patches::CustomFieldsHelperPatch)
+
   require_dependency 'chiliproject_companies/hooks'
 end
 
@@ -16,15 +26,15 @@ Redmine::Plugin.register :chiliproject_companies do
   version '0.1.0'
   url 'https://github.com/splendeo/chiliproject_companies'
   author_url 'http://www.splendeo.es'
-  
+
   settings  :partial => 'settings/companies',
             :default => {
               'top_text' => '',
               'bottom_text' => ''
             }
-  
+
   menu :admin_menu, :companies, { :controller => 'settings', :action => 'plugin', :id => 'chiliproject_companies' }, :caption => 'Companies'
   menu :top_menu, :companies, { :controller => 'companies', :action => 'index' }, :caption => 'Companies', :after => :projects
-  
+
   permission :view_companies, :companies => [:show, :index]
 end
