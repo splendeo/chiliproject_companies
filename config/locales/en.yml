@@ -15,7 +15,7 @@ en:
   label_member_filter: "Filter members by name"
   label_project_filter: "Filter projects by name"
 
-  label_companies_settings_intro: "You may specify two texts that will be shown on the companies index page, on of them over the companies table and the other below it."
+  label_companies_settings_intro: "You may specify two texts that will be shown on the companies index page: one of them above the companies table and the other one below it."
 
   notice_save_before_clicking: "(Save before clicking on this link)"
 
