@@ -4,17 +4,18 @@ class CompaniesController < ApplicationController
   before_filter :require_admin, :except => [:index, :show]
   before_filter :get_company_by_identifier, :except => [:index, :new, :create]
   before_filter :get_members, :only => [:edit, :update, :show]
-  before_filter :get_projects, :only => [:edit, :update, :show]
+  before_filter :get_projects, :only => [:edit, :update]
+  before_filter :get_settings, :only => [:index, :edit, :update]
 
   helper :projects, :custom_fields
 
   def index
     @companies = Company.all(:order => 'name ASC')
     @custom_fields = CompanyCustomField.all(:order => 'position ASC')
-    @settings = Setting.plugin_chiliproject_companies
   end
 
   def show
+    @projects = @company.all_projects
   end
 
   def new
@@ -71,7 +72,6 @@ class CompaniesController < ApplicationController
     render :partial => 'available_members'
   end
 
-
   def delete_project
     project = Project.find(params[:project_id])
     @company.projects.delete(project)
@@ -93,6 +93,10 @@ class CompaniesController < ApplicationController
   end
 
   private
+  
+  def get_settings
+    @settings = Setting.plugin_chiliproject_companies
+  end
 
   def get_members
     @members = @company.members.sorted_alphabetically

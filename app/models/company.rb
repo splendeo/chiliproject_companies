@@ -42,6 +42,18 @@ class Company < ActiveRecord::Base
   def logo_file_exists?
     logo && FileTest.exists?(logo.diskfile) && logo.image?
   end
+  
+  def all_projects
+    if Setting.plugin_chiliproject_companies['auto_calculate_proyects']
+      pr = []
+      self.members.each do |u|
+        pr << u.project_ids
+      end      
+      Project.find(pr.uniq, :order => 'name')
+    else
+      self.projects.sorted_alphabetically
+    end
+  end
 
 private
 

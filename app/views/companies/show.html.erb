@@ -34,7 +34,7 @@
   <% if @projects.any? %>
     <div class="projects box">
       <h3 class="icon icon-projects"><%= t(:label_project_plural) %></h3>
-      <%= render_project_hierarchy @projects %>
+      <%= render_project_list @projects %>
     </div>
   <% end %>
   <% if @members.any? %>
